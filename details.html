@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hogwarts</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="details.css">
+</head>
+
+<body onload="main()">
+
+    <div id="loading">
+        <img id="gif_carro" src="imagens/carro 5.gif" alt="Loading...">
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img id="navbar-logo" src="./imagens/logo.png" />
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="spells.html">Spells</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="characters.html">Characters</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div id="character-details-container" style="margin-top: 200px;"></div>
+
+
+    <!-- Bootstrap e JavaScript links -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+    <script>
+        function main() {
+            const url = "https://hp-api.onrender.com/api/characters";
+
+            fetch(url).then(function (response) {
+                return response.json();
+            }).then(function (data) {
+                const default_avatar = './imagens/default_avatar.jpg'
+                const urlParams = new URLSearchParams(window.location.search);
+                const myParam = urlParams.get('id');
+
+                const currentCharacter = data.find(character => character.id === myParam)
+                const imagem = currentCharacter.image ? currentCharacter.image : default_avatar;
+
+                const characterDetailsContainer = document.getElementById('character-details-container');
+
+                characterDetailsContainer.innerHTML = `
+                        <img style="width: 100px; height: 100px; object-fit: cover;" src=${imagem} />
+                        <h1>${currentCharacter.name}</h1>
+                        <p>Actor: ${currentCharacter.actor}</p>
+                        <p>Alternate Names: ${currentCharacter.alternate_names}</p>
+                        <p>Species: ${currentCharacter.species}</p>
+                        <p>Gender: ${currentCharacter.gender}</p>
+                        <p>Wizard: ${currentCharacter.wizard}</p>
+                        <p>Ancestry: ${currentCharacter.ancestry}</p>
+                        <p>House: ${currentCharacter.house}</p>
+                        <p>Patronus: ${currentCharacter.patronus}</p>
+                        <p>Wand: ${currentCharacter.wand.core}</p>
+                        <p>Alive: ${currentCharacter.alive}</p>
+                    `
+
+                // Oculta o loading após carregar os dados
+                document.getElementById('loading').style.display = 'none';
+            }).catch(function (error) {
+                console.log(error);
+                document.getElementById('loading').style.display = 'none';
+            });
+        }
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="characters.css">
+
+    <title>Characters</title>
+
+</head>
+
+<body onload="main()">
+
+    <!-- Div de Loading -->
+    <div id="loading">
+        <img id="gif_carro" src="imagens/carro 5.gif" alt="Loading...">
+    </div>
+
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img id="navbar-logo" src="./imagens/logo.png" />
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="spells.html">Spells</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="characters.html">Characters</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <ul><a href="index.html">Voltar à página inicial</a> </ul>
+
+    <div id="title-container">
+        <div class="container">
+            <h1 class="display-4">Witches, wizards and Muggles! We meet so many characters</h1>
+            <div class="row" id="character_container"></div>
+        </div>
+    </div>
+    <div class="container">
+        <div id="cards" class="row mt-3">
+            <!-- Content goes here -->
+        </div>
+    </div>
+
+    <ul id="character_cards"></ul>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+    <script>
+        function main() {
+            const cards = document.getElementById('character_cards');
+
+            const url = "https://hp-api.onrender.com/api/characters";
+
+            fetch(url).then(function (response) {
+                return response.json();
+            }).then(function (data) {
+                const character_container = document.getElementById("character_container");
+                const default_avatar = './imagens/default_avatar.jpg'
+
+                for (let i = 0; i < data.length; i++) {
+                    const imagem = data[i].image ? data[i].image : default_avatar;
+
+                    character_container.innerHTML += `
+                        <div class="col-md-3 mb-3">
+                            <div class="card" style="width: 18rem;">
+                                <a href="details.html?id=${data[i].id}">
+                                    <img src="${imagem}" class="card-img-top" alt="${data[i].name}">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${data[i].name}</h5>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>`;
+                }
+
+                // Esconde a tela de loading após carregar os dados
+                document.getElementById('loading').style.display = 'none';
+            }).catch(function (error) {
+                console.log(error);
+                document.getElementById('loading').style.display = 'none'; // Oculta o loading também em caso de erro
+            });
+        }
+    </script>
+
+</body>
+
+</html>

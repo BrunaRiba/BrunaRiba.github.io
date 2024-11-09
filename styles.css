@@ -1,0 +1,74 @@
+/* Estilos para o body */
+body {
+    margin: 0;
+    height: 100vh;
+    /* Altura do body ocupa a tela inteira */
+    background-image: url('imagens/fundo.jpg');
+    /* Imagem de fundo */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    /* Centraliza horizontalmente */
+    align-items: center;
+    /* Centraliza verticalmente */
+    font-family: Arial, sans-serif;
+    position: relative;
+    background-color: #1c1c1c;
+}
+
+.black-overlay {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: black;
+    opacity: 0.7;
+}
+
+/* Estilos para a div centralizada */
+.centralizar {
+    text-align: center;
+    /* Centraliza o texto dentro da div */
+    color: white;
+}
+
+/* Estilos para o título h1 */
+h1 {
+    color: #F5F5F5;
+    /* Cor dourada */
+    font-size: 2.5em;
+    font-family: 'Harry P', serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    letter-spacing: 2px;
+}
+
+#tituloPrincipal {
+    opacity: 0;
+    animation: fadeIn 0.5s ease-in-out forwards;
+    z-index: 1;
+
+    button {
+        width: 200px;
+    }
+
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+#navbar-logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+}
