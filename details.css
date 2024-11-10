@@ -33,11 +33,11 @@ nav {
 
 #gif_carro {
     width: 100vw;
-    /* Ocupe toda a largura do ecra */
+    /* Ocupa toda a largura do ecra */
     height: 100vh;
-    /* Ocupe toda a altura do ecra*/
+    /* Ocupa toda a altura do ecra*/
     object-fit: cover;
-    /* Cobre o ecra, mantendo o aspecto */
+    /* Cobre o ecra */
 
 }
 
@@ -57,7 +57,7 @@ nav {
 /* Imagem da Personagem */
 #character-details-container img {
     display: block;
-    /* Remove qualquer alinhamento central automático */
+    /* Remove qualquer alinhamento ao centro automático */
     margin: 0 auto 15px 0;
     /* Mantém margem inferior e alinha à esquerda */
     width: 220px;
